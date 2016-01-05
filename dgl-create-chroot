@@ -79,8 +79,6 @@ if [ ! -e "$CURDIR/dgamelaunch" ]; then
    errorexit "Cannot find dgamelaunch in $CURDIR"
 fi
 
-DGLFILE="dgamelaunch.`date +%Y%m%d`"
-
 echo "Setting up chroot in $CHROOT"
 
 LIBS="`findlibs dgamelaunch`"
@@ -89,8 +87,6 @@ mkdir -p "$CHROOT" || errorexit "Cannot create chroot"
 cd "$CHROOT"
 mkdir dgldir etc lib mail usr bin
 chown "$USRGRP" dgldir mail
-cp "$CURDIR/dgamelaunch" "$DGLFILE"
-ln -s "$DGLFILE" dgamelaunch
 
 mkdir -p "$CHROOT/dgldir/inprogress-tome2"
 mkdir -p "$CHROOT/dgldir/userdata"
@@ -219,7 +215,7 @@ for lib in $LIBS; do
         cp $lib "$CHROOT$lib"
 done
 
-echo "Copying locale $LOCALE"
+echo "Copying $LOCALE"
 cp -r $LOCALE "$CHROOT/usr/lib/"
 
 
