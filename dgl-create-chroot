@@ -142,8 +142,8 @@ cp "$CURDIR/examples/dgl_menu_main_anon.txt" .
 cp "$CURDIR/examples/dgl_menu_main_user.txt" .
 cp "$CURDIR/examples/dgl_menu_watchmenu_help.txt" .
 cp "$CURDIR/examples/dgl-banner" .
-cp "$CURDIR/dgl-default-rcfile" "dgl-default-rcfile.tome2"
-chmod go+r dgl_menu_main_anon.txt dgl_menu_main_user.txt dgl-banner dgl-default-rcfile.tome2
+cp "$CURDIR/dgl-tome-rcfile" "dgl-tome-rcfile"
+chmod go+r dgl_menu_main_anon.txt dgl_menu_main_user.txt dgl-banner dgl-tome-rcfile
 
 NHSUBDIR="`echo ${NHSUBDIR%/}`"
 NHSUBDIR="`echo ${NHSUBDIR#/}`"
@@ -191,7 +191,7 @@ touch "$CHROOT/$NH_VAR_PLAYGROUND/xlogfile"
 chown -R "$USRGRP" "$CHROOT/$NH_VAR_PLAYGROUND"
 fi
 
-chown -R "$USRGRP" "$CHROOT/$NHSUBDIR"
+#chown -R "$USRGRP" "$CHROOT/$NHSUBDIR"
 
 
 # Curses junk
