@@ -35,4 +35,5 @@ adduser --no-create-home --shell /usr/local/sbin/dgamelaunch tome
 ```
 Set the password to something simple (it's going to be public) and check that ssh is enabled. Users will now be able to log in with `ssh tome@host`.
 
-
+### Issues
+See [https://github.com/adamreiser/tome2/issues](https://github.com/adamreiser/tome2/issues)
