@@ -8,25 +8,26 @@
 # configure dgl with --with-config-file=/path_to_chroot/etc/dgamelaunch.conf, if you want the conf file inside the chroot.
 #
 
-
 # Same as chroot_path in dgl config file
-CHROOT="/opt/nethack/nethack.alt.org/"
+CHROOT="/opt/tome"
 # the user & group from dgamelaunch config file.
 USRGRP="games:games"
 # COMPRESS from include/config.h; the compression binary to copy. leave blank to skip.
 COMPRESSBIN="/bin/gzip"
 # nethack binary to copy into chroot (leave blank to skip)
-#NETHACKBIN="/home/paxed/hacking/coding/nethacksource/nethack-3.4.3-nao/nh343/nethack.343-nao"
+NETHACKBIN="/usr/local/bin/tome"
 # fixed data to copy (leave blank to skip)
-#NH_PLAYGROUND_FIXED="/home/paxed/hacking/coding/nethacksource/nethack-3.4.3-nao/nh343/"
+#NH_PLAYGROUND_FIXED="/home/paxed/hacking/coding/nethacksource/nethack-3.4.3-nao/tome2/"
 # HACKDIR from include/config.h; aka nethack subdir inside chroot
-NHSUBDIR="/nh343/"
+NHSUBDIR="/tome2/"
 # VAR_PLAYGROUND from include/unixconf.h
-NH_VAR_PLAYGROUND="/nh343/var/"
+#NH_VAR_PLAYGROUND="/home/var/"
+TOMELIBS="/usr/local/lib/tome"
 
 # only define this if dgl was configured with --enable-sqlite
 SQLITE_DBFILE="/dgldir/dgamelaunch.db"
 
+LOCALE='/usr/lib/locale'
 # END OF CONFIG
 ##############################################################################
 
@@ -91,9 +92,9 @@ chown "$USRGRP" dgldir mail
 cp "$CURDIR/dgamelaunch" "$DGLFILE"
 ln -s "$DGLFILE" dgamelaunch
 
-mkdir -p "$CHROOT/dgldir/inprogress-nh343"
+mkdir -p "$CHROOT/dgldir/inprogress-tome2"
 mkdir -p "$CHROOT/dgldir/userdata"
-chown "$USRGRP" "$CHROOT/dgldir/inprogress-nh343"
+chown "$USRGRP" "$CHROOT/dgldir/inprogress-tome2"
 chown "$USRGRP" "$CHROOT/dgldir/userdata"
 
 
@@ -145,8 +146,8 @@ cp "$CURDIR/examples/dgl_menu_main_anon.txt" .
 cp "$CURDIR/examples/dgl_menu_main_user.txt" .
 cp "$CURDIR/examples/dgl_menu_watchmenu_help.txt" .
 cp "$CURDIR/examples/dgl-banner" .
-cp "$CURDIR/dgl-default-rcfile" "dgl-default-rcfile.nh343"
-chmod go+r dgl_menu_main_anon.txt dgl_menu_main_user.txt dgl-banner dgl-default-rcfile.nh343
+cp "$CURDIR/dgl-default-rcfile" "dgl-default-rcfile.tome2"
+chmod go+r dgl_menu_main_anon.txt dgl_menu_main_user.txt dgl-banner dgl-default-rcfile.tome2
 
 NHSUBDIR="`echo ${NHSUBDIR%/}`"
 NHSUBDIR="`echo ${NHSUBDIR#/}`"
@@ -162,11 +163,10 @@ if [ -n "$NETHACKBIN" -a -e "$NETHACKBIN" ]; then
   cd "$NHSUBDIR"
   NHBINFILE="`basename $NETHACKBIN`.`date +%Y%m%d`"
   cp "$NETHACKBIN" "$NHBINFILE"
-  ln -s "$NHBINFILE" nethack
+  ln -s "$NHBINFILE" tome
   LIBS="$LIBS `findlibs $NETHACKBIN`"
   cd "$CHROOT"
 fi
-
 
 NH_PLAYGROUND_FIXED="`echo ${NH_PLAYGROUND_FIXED%/}`"
 
@@ -182,21 +182,20 @@ fi
 NH_VAR_PLAYGROUND="`echo ${NH_VAR_PLAYGROUND%/}`"
 NH_VAR_PLAYGROUND="`echo ${NH_VAR_PLAYGROUND#/}`"
 
-echo "Creating NetHack variable dir stuff."
 if [ -n "$NH_VAR_PLAYGROUND" ]; then
+echo "Creating NetHack variable dir stuff."
   mkdir -p "$CHROOT/$NH_VAR_PLAYGROUND"
   chown -R "$USRGRP" "$CHROOT/$NH_VAR_PLAYGROUND"
-fi
 mkdir -p "$CHROOT/$NH_VAR_PLAYGROUND/save"
 chown -R "$USRGRP" "$CHROOT/$NH_VAR_PLAYGROUND/save"
 touch "$CHROOT/$NH_VAR_PLAYGROUND/logfile"
 touch "$CHROOT/$NH_VAR_PLAYGROUND/perm"
 touch "$CHROOT/$NH_VAR_PLAYGROUND/record"
 touch "$CHROOT/$NH_VAR_PLAYGROUND/xlogfile"
+chown -R "$USRGRP" "$CHROOT/$NH_VAR_PLAYGROUND"
+fi
 
 chown -R "$USRGRP" "$CHROOT/$NHSUBDIR"
-chown -R "$USRGRP" "$CHROOT/$NH_VAR_PLAYGROUND"
-
 
 
 # Curses junk
@@ -219,6 +218,14 @@ for lib in $LIBS; do
         mkdir -p "$CHROOT`dirname $lib`"
         cp $lib "$CHROOT$lib"
 done
+
+echo "Copying locale $LOCALE"
+cp -r $LOCALE "$CHROOT/usr/lib/"
+
+
+echo "Copying $TOMELIBS"
+mkdir -p "$CHROOT`dirname $TOMELIBS`"
+cp -r "$TOMELIBS/" "$CHROOT$TOMELIBS"
 
 
 echo "Finished."

@@ -1,19 +1,198 @@
-# This is an example nethackrc file. You should edit this to suit the needs
-# of your personal nethack build and add some reasonable default options
-# for your users.
+# After editing this file, you will need to load
+# PLAYER.prf from within the game.
 
-# If you compiled dgamelaunch with the `vi' editor enabled instead of ee,
-# perhaps a helpful blurb such as this might help:
+# Option 'Rogue-like commands'
+X:rogue_like_commands
 
-# This editor is vi-like. Type ESC a couple times, then ':q!' (without quotes)
-# to exit if you get stuck. To save, hit ESC and then ZZ or type ':wq'
-# (without quotes.) To insert text, hit 'i' to enter insert mode.
+# Option 'Activate quick messages'
+Y:quick_messages
 
-# Here are some examples of reasonable defaults:
+# Option 'Prompt before picking things up'
+X:carry_query_flag
 
-OPTIONS=showexp,showscore,time,color,!autopickup
-OPTIONS=autodig,fruit:slime mold,boulder:0
+# Option 'Use old target by default'
+X:use_old_target
 
-# For more information on what you can set in your nethackrc file, refer to:
-#   http://www.nethack.org/v343/Guidebook.html#_TOCentry_42
-# Happy hacking!
+# Option 'Pick things up by default'
+X:always_pickup
+
+# Option 'Repeat obvious commands'
+Y:always_repeat
+
+# Option 'Audible bell (on errors, etc)'
+X:ring_bell
+
+# Option 'Run past stairs'
+X:find_ignore_stairs
+
+# Option 'Run through open doors'
+Y:find_ignore_doors
+
+# Option 'Run past known corners'
+X:find_cut
+
+# Option 'Run into potential corners'
+Y:find_examine
+
+# Option 'Disturb whenever any monster moves'
+X:disturb_move
+
+# Option 'Disturb whenever viewable monster moves'
+Y:disturb_near
+
+# Option 'Disturb whenever map panel changes'
+Y:disturb_panel
+
+# Option 'Disturb whenever leaving trap-detected area'
+Y:disturb_detect
+
+# Option 'Disturb whenever player state changes'
+Y:disturb_state
+
+# Option 'Disturb whenever boring things happen'
+Y:disturb_minor
+
+# Option 'Disturb whenever random things happen'
+X:disturb_other
+
+# Option 'Alert user to critical hitpoints'
+X:alert_hitpoint
+
+# Option 'Alert user to various failures'
+X:alert_failure
+
+# Option 'Get last words when the character dies'
+Y:last_words
+
+# Option 'Confirm to wear/wield known cursed items'
+Y:confirm_wear
+
+# Option 'Prompt before exiting a dungeon level'
+X:confirm_stairs
+
+# Option 'Disturb when visible pets move'
+X:disturb_pets
+
+# Option 'Auto-scum for good levels'
+Y:auto_scum
+
+# Option 'Map remembers all perma-lit grids'
+Y:view_perma_grids
+
+# Option 'Map remembers all torch-lit grids'
+X:view_torch_grids
+
+# Option 'Generate dungeons with aligned rooms'
+Y:dungeon_align
+
+# Option 'Generate dungeons with connected stairs'
+Y:dungeon_stair
+
+# Option 'Monsters chase current location (v.slow)'
+X:flow_by_sound
+
+# Option 'Monsters learn from their mistakes'
+X:smart_learn
+
+# Option 'Allow unusually small dungeon levels'
+Y:small_levels
+
+# Option 'Allow empty 'arena' levels'
+Y:empty_levels
+
+# Option 'Reduce lite-radius when running'
+X:view_reduce_lite
+
+# Option 'Avoid checking for user abort'
+X:avoid_abort
+
+# Option 'Avoid extra shimmering (fast)'
+X:avoid_shimmer
+
+# Option 'Avoid processing special colors (fast)'
+X:avoid_other
+
+# Option 'Flush input on various failures'
+Y:flush_failure
+
+# Option 'Flush input whenever disturbed'
+X:flush_disturb
+
+# Option 'Flush input before every command'
+X:flush_command
+
+# Option 'Flush output before every command'
+Y:fresh_before
+
+# Option 'Flush output after every command'
+X:fresh_after
+
+# Option 'Flush output after every message'
+X:fresh_message
+
+# Option 'Hilite the player with the cursor'
+X:hilite_player
+
+# Option 'Use special colors for torch-lit grids'
+X:view_yellow_lite
+
+# Option 'Use special colors for 'viewable' grids'
+X:view_bright_lite
+
+# Option 'Use special colors for wall grids (slow)'
+X:view_granite_lite
+
+# Option 'Use special colors for floor grids (slow)'
+X:view_special_lite
+
+# Option 'Center the view on the player (very slow)'
+X:center_player
+
+# Option 'Ingame contextual help'
+Y:ingame_help
+
+# Option 'Automatically clear '-more-' prompts'
+X:auto_more
+
+# Option 'Player char represent his/her health'
+Y:player_char_health
+
+# Option 'Stats are represented in a linear way'
+Y:linear_stats
+
+# Option 'In option windows, just omit the select char'
+X:inventory_no_move
+
+# Window 'Mirror', Flag 'Display inven/equip'
+W:1:0:0
+
+# Window 'Mirror', Flag 'Display equip/inven'
+W:1:1:0
+
+# Window 'Mirror', Flag 'Display character'
+W:1:3:0
+
+# Window 'Mirror', Flag 'Show visible monsters'
+W:1:4:0
+
+# Window 'Mirror', Flag 'Display messages'
+W:1:6:0
+
+# Window 'Mirror', Flag 'Display overhead view'
+W:1:7:0
+
+# Window 'Mirror', Flag 'Display monster recall'
+W:1:8:0
+
+# Window 'Mirror', Flag 'Display object recall'
+W:1:9:0
+
+# Window 'Mirror', Flag 'Display snap-shot'
+W:1:11:0
+
+# Window 'Mirror', Flag 'Display borg messages'
+W:1:14:0
+
+# Window 'Mirror', Flag 'Display borg status'
+W:1:15:0
+
