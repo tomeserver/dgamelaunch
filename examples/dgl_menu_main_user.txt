@@ -12,7 +12,7 @@
  e) Change email address
  w) Watch games in progress
  o) Edit options
- p) Play NetHack 3.4.3
+ p) Play ToME 2
  q) Quit
 
  =>
