@@ -9,7 +9,7 @@ The following commands will get a ToME 2 server up and running as quickly as pos
 Compile and install dgamelaunch:
 ```bash
 sudo apt-get install git autoconf sqlite3 libsqlite3-dev bison flex libncursesw5 libncursesw5-dev libncurses5-dev
-git clone https://github.com/adamreiser/dgamelaunch.git
+git clone https://github.com/tomeserver/dgamelaunch.git
 cd dgamelaunch && checkout tome
 ./autogen.sh --enable-sqlite --enable-shmem --with-config-file=/opt/dgamelaunch.conf 
 sudo cp examples/dgamelaunch.conf /opt/dgamelaunch.conf
@@ -20,7 +20,7 @@ Compile and install ToME 2. This version has been configured to work with dgamel
 
 ```bash
 sudo apt-get install cmake build-essential libboost-all-dev libjansson-dev pkg-config
-git clone https://github.com/adamreiser/tome2.git
+git clone https://github.com/tomeserver/tome2.git
 cd tome2 && checkout dgamelaunch 
 cmake -DSYSTEM_INSTALL:BOOL=true . 
 make && sudo make install 
@@ -36,4 +36,4 @@ adduser --no-create-home --shell /usr/local/sbin/dgamelaunch tome
 Set the password to something simple (it's going to be public) and check that ssh is enabled. Users will now be able to log in with `ssh tome@host`.
 
 ### Issues
-See [https://github.com/adamreiser/tome2/issues](https://github.com/adamreiser/tome2/issues)
+See [https://github.com/tomeserver/tome2/issues](https://github.com/tomeserver/tome2/issues)
