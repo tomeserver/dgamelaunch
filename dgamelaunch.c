@@ -1513,10 +1513,10 @@ changepw (int dowrite)
       drawbanner (&banner);
 
       mvprintw (5, 1,
-                "Please enter a%s password. Remember that this is sent over the net",
+                "Please enter a%s password.",
                 loggedin ? " new" : "");
       mvaddstr (6, 1,
-                "in plaintext, so make it something new and expect it to be relatively");
+                "It should be something new and you should expect it to be relatively");
       mvaddstr (7, 1, "insecure.");
       mvprintw (8, 1,
                 "%i character max. No ':' characters. Blank line to abort.", DGL_PASSWDLEN);
