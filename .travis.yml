@@ -1,4 +1,12 @@
+matrix:
+  include:
+    - os: linux
+      dist: jessie
+      sudo: required
 language: c
+os:
+ - linux
+
 branches:
  - tome
 
