@@ -1,10 +1,10 @@
-language: cpp
+language: c
 branches:
  - tome
 
 compiler:
- - g++
+ - gcc
 
-before_install: sudo apt-get install cmake build-essential libboost-all-dev libjansson-dev pkg-config
+before_install: sudo apt-get install git autoconf sqlite3 libsqlite3-dev bison flex libncursesw5 libncursesw5-dev libncurses5-dev
 
-script: cmake -DSYSTEM_INSTALL:BOOL=true . && make
+script: ./autogen.sh --enable-sqlite --enable-shmem
