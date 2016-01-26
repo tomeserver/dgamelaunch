@@ -1490,15 +1490,16 @@ changepw (int dowrite)
 {
   char buf[DGL_PASSWDLEN+1];
   unsigned long seed[2];
-  char salt[8+1+1] = "$6$ABCDE$";
+  char salt[8+1+1] = "$6$";
   int i;
   const char *const seedchars =
 		    "./0123456789ABCDEFGHIJKLMNOPQRST"
 			    "UVWXYZabcdefghijklmnopqrstuvwxyz";
   seed[0] = time(NULL);
   seed[1] = getpid() ^ (seed[0] >> 14 & 0x30000);
-//  for (i = 0; i < 8; i++)
-//	  salt[3+i] = seedchars[(seed[i/5] >> (i%5)*6) & 0x3f];
+  for (i = 0; i < 8; i++)
+	  salt[3+i] = seedchars[(seed[i/5] >> (i%5)*6) & 0x3f];
+  salt[8] = '\0';
   int error = 2;
 
   /* A precondition is that struct `me' exists because we can be not-yet-logged-in. */
@@ -1564,7 +1565,7 @@ changepw (int dowrite)
     }
 
   free(me->password);
-  me->password = strdup (crypt (salt, buf));
+  me->password = strdup (crypt (buf, salt));
 
   if (dowrite)
     writefile (0);
@@ -2063,10 +2064,9 @@ passwordgood (char *cpw)
 {
   char *crypted;
 
-  char salt[8+1+1] = "$6$ABCDE$";
   assert (me != NULL);
 
-  crypted = crypt (salt, cpw);
+  crypted = crypt (cpw, me->password);
   if (crypted == NULL)
       return 0;
   if (!strncmp (crypted, me->password, DGL_PASSWDLEN))
