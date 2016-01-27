@@ -15,7 +15,7 @@ if test -z "$LEX"; then
    AC_MSG_ERROR([lex or flex not found.])
 fi
 
-LEXLIBS="$LEXLIB"
+LIBS="$LIBS $LEXLIB"
 
 AC_CHECK_LIB(pthread, pthread_create, [], [AC_MSG_ERROR([need pthreads])])
 
@@ -26,28 +26,13 @@ fi
 
 case "$(uname -s)" in
   Linux | *BSD)
-    MY_LIBS="$MY_LIBS -lutil -lcrypt"
+    LIBS="$LIBS -lutil -lcrypt"
     AC_DEFINE(NOSTREAMS, 1, [Don't use SVR4 streams support in ttyrec.])
   ;;
 esac
 
 AC_MSG_CHECKING([for Solaris cc])
-case "`$CC -V 2>&1`" in
-  *Sun*WorkShop* | *Forte*Developer*)
-    AC_MSG_RESULT(yes)
-    suncc=yes
-  ;;
-  *)
-    AC_MSG_RESULT(no)
-  ;;
-esac
-
-AC_PATH_PROG(MKDEP, mkdep)
-AC_PATH_PROG(MAKEDEPEND, makedepend)
-
-AC_MSG_CHECKING([how to generate dependency info])
-
-if test "$ac_cv_c_compiler_gnu" = yes; then
+case "CC -V 2>&1s; then
   CFLAGS="$CFLAGS -Wall -Wno-unused"
   MKDEP="$CC -MM"
   MKDEP_DIRECT="> .depend"
@@ -108,7 +93,7 @@ AC_ARG_WITH(sqlite-db,
 if test "$enable_sqlite" = yes; then
    AC_MSG_RESULT([Using SQLite for the database, located at $dgl_sqlite_db])
    AC_DEFINE(USE_SQLITE3,1,[Use SQLite for the database instead of flat text file.])
-   MY_LIBS="$MY_LIBS -lsqlite3"
+   LIBS="$LIBS -lsqlite3"
    AC_DEFINE_UNQUOTED(USE_SQLITE_DB, "$dgl_sqlite_db", [Path and filename of the SQLite database.])
 fi
 
@@ -158,7 +143,7 @@ if test "$enable_shmem" = yes; then
    AC_CHECK_HEADERS([sys/shm.h], [], [AC_MSG_ERROR([sys/shm.h not found.])], [])
    AC_MSG_RESULT([Enabled showing number of watchers.])
    AC_DEFINE(USE_SHMEM,1,[Use shared memory block])
-   MY_LIBS="$MY_LIBS -lrt"
+   LIBS="$LIBS -lrt"
    # or -pthread?
 fi
 
@@ -184,10 +169,9 @@ else
 fi
 
 
-LIBS="$LIBS $MY_LIBS"
 
 AC_SUBST(SETPROCTITLE_C)
-AC_SUBST(LEXLIBS)
 
 AC_CONFIG_FILES(Makefile)
 AC_OUTPUT
+
