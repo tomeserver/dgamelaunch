@@ -1,4 +1,5 @@
 ## dgamelaunch
+[![Build Status](https://api.travis-ci.org/tomeserver/dgamelaunch.png)](https://travis-ci.org/tomeserver/dgamelaunch/)
 
 dgamelaunch is a network-based game shell best known for being used on [nethack.alt.org](https://nethack.alt.org). This repository provides a set of configuration files suitable for the roguelike game ToME 2. The official dgamelaunch repository is located at [https://github.com/paxed/dgamelaunch](https://github.com/paxed/dgamelaunch)
 
