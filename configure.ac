@@ -17,7 +17,11 @@ fi
 
 LIBS="$LIBS $LEXLIB"
 
+<<<<<<< HEAD
 AC_CHECK_LIB(pthread, pthread_create, [], [AC_MSG_ERROR([need pthreads])])
+=======
+AC_CHECK_LIB(pthread, pthread_create, [LIBS="$LIBS -lpthread"])
+>>>>>>> 10fbe9a44d42a59b14f77a5e63263f73ca64d2a9
 
 AC_CHECK_PROGS(YACC, 'bison -y' byacc yacc)
 if test -z "$YACC"; then
@@ -32,7 +36,26 @@ case "$(uname -s)" in
 esac
 
 AC_MSG_CHECKING([for Solaris cc])
+<<<<<<< HEAD
 case "CC -V 2>&1s; then
+=======
+case "`$CC -V 2>&1`" in
+  *Sun*WorkShop* | *Forte*Developer*)
+    AC_MSG_RESULT(yes)
+    suncc=yes
+  ;;
+  *)
+    AC_MSG_RESULT(no)
+  ;;
+esac
+
+AC_PATH_PROG(MKDEP, mkdep)
+AC_PATH_PROG(MAKEDEPEND, makedepend)
+
+AC_MSG_CHECKING([how to generate dependency info])
+
+if test "$ac_cv_c_compiler_gnu" = yes; then
+>>>>>>> 10fbe9a44d42a59b14f77a5e63263f73ca64d2a9
   CFLAGS="$CFLAGS -Wall -Wno-unused"
   MKDEP="$CC -MM"
   MKDEP_DIRECT="> .depend"
