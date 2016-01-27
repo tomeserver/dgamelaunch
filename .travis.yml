@@ -1,0 +1,13 @@
+language: c
+os:
+ - linux
+
+branches:
+ - master
+
+compiler:
+ - gcc
+
+before_install: sudo apt-get install git autoconf sqlite3 libsqlite3-dev bison flex libncursesw5 libncursesw5-dev libncurses5-dev
+
+script: ./autogen.sh --enable-sqlite --enable-shmem && make
