@@ -2066,11 +2066,25 @@ passwordgood (char *cpw)
 
   assert (me != NULL);
 
+  /* Calculate the hash, getting the salt from the known hash */
   crypted = crypt (cpw, me->password);
+
   if (crypted == NULL)
       return 0;
+
+  /* Try sha512 */
   if (!strncmp (crypted, me->password, DGL_PASSWDLEN))
+  {
+	/* Fall back to des */
+	crypted = crypt (cpw, cpw);
+	if (!strncmp (crypted, me->password, DGL_PASSWDLEN))
+		return 1;
+	else
+		return 0;
+  }
     return 1;
+
+  /* password bad if plaintext equals saved password */
   if (!strncmp (cpw, me->password, DGL_PASSWDLEN))
     return 1;
 
