@@ -2082,11 +2082,6 @@ passwordgood (char *cpw)
 	else
 		return 0;
   }
-    return 1;
-
-  /* password bad if plaintext equals saved password */
-  if (!strncmp (cpw, me->password, DGL_PASSWDLEN))
-    return 1;
 
   return 0;
 }
