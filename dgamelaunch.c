@@ -2101,7 +2101,7 @@ readfile (int nolock)
   fl.l_start = 0;
   fl.l_len = 0;
 
-  memset (buf, 1024, 0);
+  memset (buf, 0, 1024);
 
   /* read new stuff */
 
