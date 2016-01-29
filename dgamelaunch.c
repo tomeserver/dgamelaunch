@@ -1489,6 +1489,17 @@ int
 changepw (int dowrite)
 {
   char buf[DGL_PASSWDLEN+1];
+  unsigned long seed[2];
+  char salt[8+3+1] = "$6$";
+  int i;
+  const char *const seedchars =
+		    "./0123456789ABCDEFGHIJKLMNOPQRST"
+			    "UVWXYZabcdefghijklmnopqrstuvwxyz";
+  seed[0] = time(NULL);
+  seed[1] = getpid() ^ (seed[0] >> 14 & 0x30000);
+  for (i = 0; i < 8; i++)
+	  salt[3+i] = seedchars[(seed[i/5] >> (i%5)*6) & 0x3f];
+  salt[9] = '\0';
   int error = 2;
 
   /* A precondition is that struct `me' exists because we can be not-yet-logged-in. */
@@ -1554,7 +1565,7 @@ changepw (int dowrite)
     }
 
   free(me->password);
-  me->password = strdup (crypt (buf, buf));
+  me->password = strdup (crypt (buf, salt));
 
   if (dowrite)
     writefile (0);
@@ -2052,15 +2063,25 @@ int
 passwordgood (char *cpw)
 {
   char *crypted;
+
   assert (me != NULL);
 
-  crypted = crypt (cpw, cpw);
+  /* Calculate the hash, getting the salt from the known hash */
+  crypted = crypt (cpw, me->password);
+
   if (crypted == NULL)
       return 0;
-  if (!strncmp (crypted, me->password, DGL_PASSWDLEN))
-    return 1;
-  if (!strncmp (cpw, me->password, DGL_PASSWDLEN))
-    return 1;
+
+  /* Try sha512 */
+  if (!strncmp (crypted, me->password, 1024))
+	  return 1;
+  else
+  {
+	/* Otherwise use the default */
+	crypted = crypt (cpw, cpw);
+	if (!strncmp (crypted, me->password, 1024))
+		return 1;
+  }
 
   return 0;
 }
@@ -2080,7 +2101,7 @@ readfile (int nolock)
   fl.l_start = 0;
   fl.l_len = 0;
 
-  memset (buf, 1024, 0);
+  memset (buf, 0, 1024);
 
   /* read new stuff */
 
