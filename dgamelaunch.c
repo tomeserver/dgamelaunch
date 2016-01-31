@@ -2131,7 +2131,7 @@ passwordgood (char *cpw)
     return 1;
 
   /* Compatibility */
-  if (!strncmp (cpw, cpw, DGL_CRYPTLEN))
+  if (!strncmp (cpw, me->password, DGL_CRYPTLEN))
     return 1;
 
   return 0;
