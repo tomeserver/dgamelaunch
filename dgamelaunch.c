@@ -2128,10 +2128,6 @@ passwordgood (char *cpw)
   if (!strncmp (crypt (cpw, me->password), me->password, DGL_CRYPTLEN))
     return 1;
 
-  /* Compatibility */
-  if (!strncmp (crypt (cpw, cpw), me->password, DGL_CRYPTLEN))
-    return 1;
-
   return 0;
 }
 
